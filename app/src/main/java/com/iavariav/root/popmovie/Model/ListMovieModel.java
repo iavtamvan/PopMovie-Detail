@@ -22,9 +22,11 @@ public class ListMovieModel implements Parcelable {
     @SerializedName("video")
     @Expose
     private Boolean video;
+
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
+
     @SerializedName("title")
     @Expose
     private String title;

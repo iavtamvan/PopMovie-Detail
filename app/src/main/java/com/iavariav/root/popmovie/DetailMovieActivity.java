@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.iavariav.root.popmovie.Helper.MovieContract;
 import com.iavariav.root.popmovie.Model.ListMovieModel;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class DetailMovieActivity extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class DetailMovieActivity extends AppCompatActivity {
     private ImageView imgPoster;
     private Toolbar toolbar;
     private TextView tvOverview;
+    private TextView tvReleaseDate;
+    private TextView tvRating;
     private FloatingActionButton fab;
 
     ArrayList<ListMovieModel> list;
@@ -50,7 +54,9 @@ public class DetailMovieActivity extends AppCompatActivity {
         imgPoster = (ImageView) findViewById(R.id.img_poster);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvOverview = (TextView) findViewById(R.id.tv_overview);
+        tvReleaseDate = (TextView) findViewById(R.id.tv_release_date);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        tvRating = (TextView) findViewById(R.id.tv_rating);
 
         //Setting Shared Preference
         pref = PreferenceManager.getDefaultSharedPreferences(DetailMovieActivity.this);
@@ -65,11 +71,13 @@ public class DetailMovieActivity extends AppCompatActivity {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500" +
                 list.get(pos).getPosterPath()).into(imgPoster);
         tvOverview.setText(list.get(pos).getOverview());
+        tvReleaseDate.setText(list.get(pos).getReleaseDate());
+        tvRating.setText(""+list.get(pos).getVoteAverage());
 
+        //ambil nilai isFavorit pada shared preference
         isFavorit = pref.getBoolean("FAVORIT"+list.get(pos).getId(),false);
         updateFAB();
 
-        //
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +123,12 @@ public class DetailMovieActivity extends AppCompatActivity {
                 list.get(pos).getTitle());
         contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER,
                 list.get(pos).getPosterPath());
-
+        contentValues.put(MovieContract.MovieEntry.COLUMN_OVERVIEW,
+                list.get(pos).getOverview());
+        contentValues.put(MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
+                list.get(pos).getReleaseDate());
+        contentValues.put(MovieContract.MovieEntry.COLUMN_RATING,
+                list.get(pos).getVoteAverage());
         getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
 //        if (ContentUris.parseId(uri)>0){
 //            Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();

@@ -74,7 +74,9 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
                     movieModel.setId(data.getInt(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_ID)));
                     movieModel.setTitle(data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_JUDUL)));
                     movieModel.setPosterPath(data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_POSTER)));
-//                    model.setOverview(data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_OVERVIEW)));
+                    movieModel.setOverview(data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_OVERVIEW)));
+                    movieModel.setReleaseDate(data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_RELEASE_DATE)));
+                    movieModel.setVoteAverage(data.getDouble(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_RATING)));
                     favorite.add(movieModel);
                     MovieAdapter movieAdapter = new MovieAdapter(getActivity(), favorite);
                     mrvFavorite.setAdapter(movieAdapter);
