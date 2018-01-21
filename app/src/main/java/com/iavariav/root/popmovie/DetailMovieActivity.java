@@ -100,6 +100,7 @@ public class DetailMovieActivity extends AppCompatActivity {
                     Snackbar.make(view, "Favorit ditambah", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
+
                 }
                 updateFAB();
             }
