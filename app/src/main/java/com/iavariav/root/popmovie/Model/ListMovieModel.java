@@ -56,6 +56,9 @@ public class ListMovieModel implements Parcelable {
     @Expose
     private String releaseDate;
 
+    public ListMovieModel() {
+    }
+
     protected ListMovieModel(Parcel in) {
         if (in.readByte() == 0) {
             voteCount = null;

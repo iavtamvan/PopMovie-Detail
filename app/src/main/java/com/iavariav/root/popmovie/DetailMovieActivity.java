@@ -1,5 +1,6 @@
 package com.iavariav.root.popmovie;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.iavariav.root.popmovie.Helper.MovieContract;
@@ -112,8 +114,14 @@ public class DetailMovieActivity extends AppCompatActivity {
         contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER,
                 list.get(pos).getPosterPath());
 
-        getContentResolver()
-                .insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
+        Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
+        if (ContentUris.parseId(uri)>0){
+            Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Data Gagal disimpan", Toast.LENGTH_SHORT).show();
+        }
+        
     }
 
     private void updateFAB() {
