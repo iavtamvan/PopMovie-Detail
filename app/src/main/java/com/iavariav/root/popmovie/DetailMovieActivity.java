@@ -66,24 +66,30 @@ public class DetailMovieActivity extends AppCompatActivity {
                 list.get(pos).getPosterPath()).into(imgPoster);
         tvOverview.setText(list.get(pos).getOverview());
 
+        isFavorit = pref.getBoolean("FAVORIT"+list.get(pos).getId(),false);
+        Toast.makeText(DetailMovieActivity.this, "awal "+isFavorit, Toast.LENGTH_SHORT).show();
+        updateFAB();
+
         //
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFavorit){
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("FAVORIT"+list.get(pos).getTitle(), false);
+                    editor.putBoolean("FAVORIT"+list.get(pos).getId(), false);
                     editor.commit();
                     isFavorit = false;
                     hapusFavorit();
+                    Toast.makeText(DetailMovieActivity.this, ""+isFavorit, Toast.LENGTH_SHORT).show();
                     Snackbar.make(view, "Favorit dihapus", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }else {
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("FAVORIT"+list.get(pos).getTitle(),true);
+                    editor.putBoolean("FAVORIT"+list.get(pos).getId(),true);
                     editor.commit();
                     isFavorit = true;
                     tambahFavorit();
+                    Toast.makeText(DetailMovieActivity.this, ""+isFavorit, Toast.LENGTH_SHORT).show();
                     Snackbar.make(view, "Favorit ditambah", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
@@ -91,9 +97,6 @@ public class DetailMovieActivity extends AppCompatActivity {
                 updateFAB();
             }
         });
-
-        pref.getBoolean("FAVORIT"+list.get(pos).getTitle(),false);
-        updateFAB();
     }
 
     private void hapusFavorit() {
@@ -114,14 +117,14 @@ public class DetailMovieActivity extends AppCompatActivity {
         contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER,
                 list.get(pos).getPosterPath());
 
-        Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
-        if (ContentUris.parseId(uri)>0){
-            Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "Data Gagal disimpan", Toast.LENGTH_SHORT).show();
-        }
-        
+        getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
+//        if (ContentUris.parseId(uri)>0){
+//            Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            Toast.makeText(this, "Data Gagal disimpan", Toast.LENGTH_SHORT).show();
+//        }
+
     }
 
     private void updateFAB() {
