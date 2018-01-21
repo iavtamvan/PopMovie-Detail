@@ -13,4 +13,8 @@ import retrofit2.http.GET;
 public interface ApiClient {
     @GET("movie/popular?api_key=0dde3e9896a8c299d142e214fcb636f8&language=en-US&page=1")
     Call<MovieModelBaru> ambilFilmPopuler();
+
+    //ini link top rated
+    @GET("movie/popular?api_key=0dde3e9896a8c299d142e214fcb636f8&language=en-US&page=1")
+    Call<MovieModelBaru> ambilTopRatedFil();
 }
