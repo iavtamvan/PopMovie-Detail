@@ -64,7 +64,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         //Terima data
         list = new ArrayList<>();
         list = getIntent().getParcelableArrayListExtra("list");
-        pos = getIntent().getIntExtra("position",0);
+        pos = getIntent().getIntExtra("position", 0);
 
         //Setting Value
         getSupportActionBar().setTitle(list.get(pos).getTitle());
@@ -72,31 +72,31 @@ public class DetailMovieActivity extends AppCompatActivity {
                 list.get(pos).getPosterPath()).into(imgPoster);
         tvOverview.setText(list.get(pos).getOverview());
         tvReleaseDate.setText(list.get(pos).getReleaseDate());
-        tvRating.setText(""+list.get(pos).getVoteAverage());
+        tvRating.setText("" + list.get(pos).getVoteAverage());
 
         //ambil nilai isFavorit pada shared preference
-        isFavorit = pref.getBoolean("FAVORIT"+list.get(pos).getId(),false);
+        isFavorit = pref.getBoolean("FAVORIT" + list.get(pos).getId(), false);
         updateFAB();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isFavorit){
+                if (isFavorit) {
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("FAVORIT"+list.get(pos).getId(), false);
+                    editor.putBoolean("FAVORIT" + list.get(pos).getId(), false);
                     editor.commit();
                     isFavorit = false;
                     hapusFavorit();
-                    Toast.makeText(DetailMovieActivity.this, ""+isFavorit, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailMovieActivity.this, "" + isFavorit, Toast.LENGTH_SHORT).show();
                     Snackbar.make(view, "Favorit dihapus", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                }else {
+                } else {
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("FAVORIT"+list.get(pos).getId(),true);
+                    editor.putBoolean("FAVORIT" + list.get(pos).getId(), true);
                     editor.commit();
                     isFavorit = true;
                     tambahFavorit();
-                    Toast.makeText(DetailMovieActivity.this, ""+isFavorit, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailMovieActivity.this, "" + isFavorit, Toast.LENGTH_SHORT).show();
                     Snackbar.make(view, "Favorit ditambah", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
@@ -112,7 +112,7 @@ public class DetailMovieActivity extends AppCompatActivity {
                         MovieContract.MovieEntry.CONTENT_URI
                                 .buildUpon()
                                 .appendPath(String.valueOf(list.get(pos).getId())).build()
-                        ,null,null);
+                        , null, null);
     }
 
     private void tambahFavorit() {
@@ -140,9 +140,9 @@ public class DetailMovieActivity extends AppCompatActivity {
     }
 
     private void updateFAB() {
-        if (isFavorit){
+        if (isFavorit) {
             fab.setImageResource(R.drawable.ic_favorite);
-        }else {
+        } else {
             fab.setImageResource(R.drawable.ic_not_favorite);
         }
     }
