@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "popular_movie.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 MovieContract.MovieEntry.COLUMN_ID+" INTEGER, " +
                 MovieContract.MovieEntry.COLUMN_JUDUL+" TEXT, " +
                 MovieContract.MovieEntry.COLUMN_POSTER+" TEXT, " +
+                MovieContract.MovieEntry.COLUMN_OVERVIEW+" TEXT, " +
+                MovieContract.MovieEntry.COLUMN_RELEASE_DATE+" TEXT, " +
                 "UNIQUE ("+MovieContract.MovieEntry.COLUMN_JUDUL+") ON CONFLICT REPLACE);";
         sqLiteDatabase.execSQL(query);
     }

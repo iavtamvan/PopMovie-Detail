@@ -67,7 +67,6 @@ public class DetailMovieActivity extends AppCompatActivity {
         tvOverview.setText(list.get(pos).getOverview());
 
         isFavorit = pref.getBoolean("FAVORIT"+list.get(pos).getId(),false);
-        Toast.makeText(DetailMovieActivity.this, "awal "+isFavorit, Toast.LENGTH_SHORT).show();
         updateFAB();
 
         //
